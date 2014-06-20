@@ -1,0 +1,112 @@
+<apex:page Controller="QuarterlyActivityController" cache="true" contentType="text/csv#opendooractivityreport.csv" showHeader="false" sidebar="false">MQI Quarterly Activity Data {!reportingYear}
+	Project: M13 Open Door Athlone  Reporting Period: <apex:outputText value=" {0,date,MMM}"><apex:param value="{!startDate}" /></apex:outputText> - <apex:outputText value="{0,date,MMM' 'yyyy}"><apex:param value="{!endDate}" /></apex:outputText>
+	Client Work,
+	<apex:repeat value="{!Months}" var="monthEnd">
+		<apex:outputText value="{0,date,MMM}"><apex:param value="{!monthEnd}" /></apex:outputText>,
+	</apex:repeat>Total (Year to date)
+	Total number of new attendees during the quarter reporting period,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.newAttendees}"/>,</apex:repeat>
+	Male,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.newMales}"/>,</apex:repeat>
+	Female,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.newFemales}"/>,</apex:repeat>
+	,
+	,
+	Total current caseload as of end of reporting period (to include new attendees),<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.totalClients}"/>,</apex:repeat>{!Totals.totalClients}
+	Male,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.totalMales}"/>,</apex:repeat>{!Totals.totalMales}
+	Female,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.totalFemales}"/>,</apex:repeat>{!Totals.totalFemales}
+	{!ClientTypeDetails}
+	Age
+	17 yrs or under,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.Age1}"/>,</apex:repeat>
+	18 - 19,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.Age2}"/>,</apex:repeat>
+	20 - 24,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.Age3}"/>,</apex:repeat>
+	25 - 29,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.Age4}"/>,</apex:repeat>
+	30 - 34,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.Age5}"/>,</apex:repeat>
+	35 - 39,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.Age6}"/>,</apex:repeat>
+	40 - 44,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.Age7}"/>,</apex:repeat>
+	45 - 49,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.Age8}"/>,</apex:repeat>
+	50 years or over,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.Age9}"/>,</apex:repeat>
+	Not recorded,<apex:repeat value="{!MonthData}" var="ages"><apex:outputText value="{!ages.Region1.AgeNone}"/>,</apex:repeat>
+
+	Location (Home Address) of Clients
+	{!estateDetails} 
+ 
+	Primary Drug of Choice
+	{!PrimaryDrugDetails}
+
+	Poly Drug Use
+	Amphetamines,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Amphetamines}"/>,</apex:repeat>
+	Heroin,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Heroin}"/>,</apex:repeat>
+	Cocaine,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Cocaine}"/>,</apex:repeat>
+	Benzodiazepines,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Benzodiazepines}"/>,</apex:repeat>
+	Legal highs,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Legalhighs}"/>,</apex:repeat>
+	Prescribed Methadone,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.PrescribedMethadone}"/>,</apex:repeat>
+	Street Methadone,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.StreetMethadone}"/>,</apex:repeat>
+	Ecstasy,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Ecstasy}"/>,</apex:repeat>
+	Cannabis,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Cannabis}"/>,</apex:repeat>
+	Crack cocaine,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Crackcocaine}"/>,</apex:repeat>
+	Alcohol,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Alcohol}"/>,</apex:repeat>
+	Crystal Meth,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CrystalMeth}"/>,</apex:repeat>
+	OTC,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.OTC}"/>,</apex:repeat>
+	Other please specify,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Other}"/>,</apex:repeat>
+
+	Care Plans
+	Total number of care plans in place,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CarePlansInPlace}"/>,</apex:repeat>
+	Total number of care plans developed in reporting period,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CarePlansCreated}"/>,</apex:repeat>
+	Total number of care plans reviewed in reporting period,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CarePlansReviewed}"/>,</apex:repeat>
+	Total number of care plans completed during reporting period,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CarePlansCompleted}"/>,</apex:repeat>
+
+	Interventions
+	Number of Advice and Support given,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.AdviceAndSupport}"/>,</apex:repeat>
+	Number of one-to-one brief interventions,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.One2One}"/>,</apex:repeat>
+	Number of relapse prevention groups ran,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.RelapsePrevention}"/>,</apex:repeat>
+
+	Open Door Services Used by Clients
+	Laundry,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Laundry}"/>,</apex:repeat>
+	Showers,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Showers}"/>,</apex:repeat>
+	Nutrition,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Nutrition}"/>,</apex:repeat>
+	Phone Calls Out,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.PhoneCallsOut}"/>,</apex:repeat>
+	Computer,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Computer}"/>,</apex:repeat>
+	Literacy Support,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.LiteracySupport}"/>,</apex:repeat>
+	Placement from NLN/Shannon Banks,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.PlacementfromNLN}"/>,</apex:repeat>
+	Placement from AIT,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.PlacementfromAIT}"/>,</apex:repeat>
+	Arts and Crafts Training,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.ArtsandCraftsTraining}"/>,</apex:repeat>
+	Cookery Classes,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CookeryClasses}"/>,</apex:repeat>
+	Horticultural Classes,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.HorticulturalClasses}"/>,</apex:repeat>
+	Woodwork,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Woodwork}"/>,</apex:repeat>
+	Personal Care,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Personal_Care}"/>,</apex:repeat>
+	Stabilisation group,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Stabilisation_group}"/>,</apex:repeat>
+
+
+	Referral In
+	Total number of individuals referred to the service during the quarter reporting period,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.totalReferralsIn}"/>,</apex:repeat>
+	Male,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.maleReferralsIn}"/>,</apex:repeat>
+	Female,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.femaleReferralsIn}"/>,</apex:repeat>
+	Source of Referral
+	{!referralsInDetails}
+
+	Referral Out
+	Total number of individuals referred from the service during the quarter reporting period,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.totalReferralsOut}"/>,</apex:repeat>
+	Male,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.maleReferralsOut}"/>,</apex:repeat>
+	Female,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.femaleReferralsOut}"/>,</apex:repeat>
+	Referral Agent
+	Community Detox Programme,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CommunityDetoxProgramme}"/>,</apex:repeat>
+	Detox/Residential Setting,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.DetoxResidentialSetting}"/>,</apex:repeat>
+	Community GP,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CommunityGP}"/>,</apex:repeat>
+	CADS - Methadone Maintenance Programme/Counselling,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CADS}"/>,</apex:repeat>
+	Stepping Out Project,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.SteppingOutProject}"/>,</apex:repeat>
+	Complimentary Therapies,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.ComplimentaryTherapies}"/>,</apex:repeat>
+	VEC,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.VEC}"/>,</apex:repeat>
+	Social Welfare,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.SocialWelfare}"/>,</apex:repeat>
+	TFE Project,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.TFEProject}"/>,</apex:repeat>
+	Housing Officer,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.HousingOfficer}"/>,</apex:repeat>
+	Ana Liffey Drug Project,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.AnaLiffeyDrugProject}"/>,</apex:repeat>
+	St Marthas Longford,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.StMarthasLongford}"/>,</apex:repeat>
+	Other MQI Service,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.OtherMQIService}"/>,</apex:repeat>
+	Other -SIMON Community,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.OtherSIMONCommunity}"/>,</apex:repeat>
+
+ Detail of meetings attended by worker during reporting quarter
+Agency meeting
+Other - please specify
+Other - please specify
+
+	Visits to OPEN DOOR,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.totalVisits}"/>,</apex:repeat>
+	
+</apex:page>

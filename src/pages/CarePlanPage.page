@@ -1,0 +1,46 @@
+<apex:page standardController="Contact" extensions="ViewCarePlan">
+    <apex:pageBlock id="thePageBlock" title="Care plan for {!Contact.Name}">
+    	<strong>Counsellor:</strong> <apex:outputText value=" {!Counsellor}"/><br/>
+        <apex:pageBlock title="Care plan objectives" >
+ 			<apex:repeat value="{!CarePlanObjectives}" var="oneCarePlanObjective">
+	 			<apex:pageBlock title="Care Plan Objective: {!oneCarePlanObjective.Name}">
+	 				<table>
+	 				<col width="200"/>
+  					<col width="300"/>
+  					<col width="100"/>
+	 				<col width="100"/>
+  					<col width="100"/>
+  					<col width="100"/>
+	 				<tr>
+	 				<td><strong>Date objective set:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Date_objective_set__c}   " /></td>
+		 			<td><strong>Next review date:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Next_Review_Date__c}   " /></td>
+		 			<td><strong>Date completed:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Date_completed__c}" /></td>
+		 			</tr>
+	 				<tr>
+		 			<td><strong>Lead agency:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Lead_Agency_name__c}   " /></td>
+		 			<td><strong>Lead key worker:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Lead_Key_Worker_name__c}" /></td>
+		 			</tr>
+		 			<tr><td><strong>Objective Status:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Objective_Status__c}"/></td></tr>
+		 			<tr><td><strong>Objective and timescale:</strong> </td><td><apex:outputText value=" {!oneCarePlanObjective.Objective_and_Timescale__c}"/></td></tr>
+		 			<tr><td><strong>Time frame:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Time_Frame_short__c}"/></td></tr>
+		 			<tr><td><strong>How will progress be measured:</strong> </td><td><apex:outputText value=" {!oneCarePlanObjective.How_will_progress_be_measured__c}"/></td></tr>
+		 			<tr><td><strong>Work to be done to achieve objective:</strong> </td><td><apex:outputText value=" {!oneCarePlanObjective.Work_to_be_done_to_achieve_objective__c}"/></td></tr>	
+					<tr><td><strong>Outcome:</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Outcome__c}"/></td></tr>
+					<tr><td><strong>Comment: Reasons achieved or not!</strong></td><td> <apex:outputText value=" {!oneCarePlanObjective.Comment_Reasons_achieved_or_not__c}"/></td></tr>
+					</table>
+		 			<apex:outputPanel layout="none" rendered="{!oneCarePlanObjective.Care_plan_step_count__c > 0}">
+		 				<apex:pageBlockSection title="Care plan steps" columns="1">
+				 			<apex:repeat value="{!CarePlanSteps}" var="oneCarePlanStep">
+				 				<apex:outputPanel layout="none" rendered="{!oneCarePlanStep.Care_Plan_Objective__c == oneCarePlanObjective.Id}">
+				 					<strong>Step name:</strong> <apex:outputField value=" {!oneCarePlanStep.Name}"/><br/>
+				 					<strong>Date:</strong><apex:outputText value=" {!oneCarePlanStep.Date__c}"/><br/>
+				 					<strong>Description:</strong><apex:outputText value=" {!oneCarePlanStep.Description__c}"/><br/>
+				 				</apex:outputPanel>
+				 			</apex:repeat>
+			 			</apex:pageBlockSection>
+			 		</apex:outputPanel>
+		 		</apex:pageBlock>
+			</apex:repeat>
+		</apex:pageBlock>
+	</apex:pageBlock>
+</apex:page>
