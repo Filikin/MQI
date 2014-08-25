@@ -42,17 +42,24 @@ public class OpenDoorMonthlySummaryData extends MonthSummaryData
 		}
 	}
 	
+	// EK 25 August 2014 - Mark wants count of supported individuals with careplans in place 
 	public override void countCarePlans()
 	{
-		List<Care_Plan_Objective__c> carePlans = [select ID, Date_objective_set__c, Review_date__c, Date_completed__c
+		set <ID> individualsWithCarePlans = new set <ID>();
+		List<Care_Plan_Objective__c> carePlans = [select ID, Date_objective_set__c, Review_date__c, Date_completed__c, Client__c
 			from Care_Plan_Objective__c where Client__c in :clientsSupportedThisMonth and Date_objective_set__c != null];
 		for (Care_Plan_Objective__c oneCarePlan: carePlans)
 		{
-			if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) Region1.CarePlansInPlace++;
+			if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) 
+			{
+				// Region1.CarePlansInPlace++;
+				individualsWithCarePlans.add (oneCarePlan.Client__c);
+			}
 			if (oneCarePlan.Date_objective_set__c >= startOfMonth && oneCarePlan.Date_objective_set__c <= endOfMonth) Region1.CarePlansCreated++;
 			if (oneCarePlan.Review_date__c != null && oneCarePlan.Review_date__c >= startOfMonth && oneCarePlan.Review_date__c <= endOfMonth) Region1.CarePlansReviewed++;
 			if (oneCarePlan.Date_completed__c != null && oneCarePlan.Date_completed__c >= startOfMonth && oneCarePlan.Date_completed__c <= endOfMonth) Region1.CarePlansCompleted++;
 		}
+		Region1.CarePlansInPlace = individualsWithCarePlans.size();
 	}
 	
 	public override void countReferralsIn ()

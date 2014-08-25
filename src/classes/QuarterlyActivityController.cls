@@ -1115,8 +1115,8 @@ public with sharing class QuarterlyActivityController
 		system.assertEquals (1, qac.monthsData[1].Region1.CarePlansInPlace);
 		system.assertEquals (1, qac.monthsData[2].Region1.CarePlansInPlace);
 		system.assertEquals (1, qac.monthsData[3].Region1.CarePlansInPlace);
-		system.assertEquals (2, qac.monthsData[4].Region1.CarePlansInPlace);
-		system.assertEquals (2, qac.monthsData[5].Region1.CarePlansInPlace);
+		system.assertEquals (1, qac.monthsData[4].Region1.CarePlansInPlace); // this is now number of individuals with care plans in place
+		system.assertEquals (1, qac.monthsData[5].Region1.CarePlansInPlace);
 
 		system.assertEquals (0, qac.monthsData[0].Region1.CarePlansReviewed);
 		system.assertEquals (1, qac.monthsData[1].Region1.CarePlansReviewed);

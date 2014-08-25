@@ -1,4 +1,4 @@
-<apex:page Controller="QuarterlyActivityController" cache="true" contentType="text/csv#opendooractivityreport.csv" showHeader="false" sidebar="false">MQI Quarterly Activity Data {!reportingYear}
+<apex:page Controller="QuarterlyActivityController" cache="true" contentType="text/csv#opendooractivityreport.csv" showHeader="false" sidebar="false">MQI Quarterly Activity Data {!reportingYear}, V2.00
 	Project: M13 Open Door Athlone  Reporting Period: <apex:outputText value=" {0,date,MMM}"><apex:param value="{!startDate}" /></apex:outputText> - <apex:outputText value="{0,date,MMM' 'yyyy}"><apex:param value="{!endDate}" /></apex:outputText>
 	Client Work,
 	<apex:repeat value="{!Months}" var="monthEnd">
@@ -48,7 +48,7 @@
 	Other please specify,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.Other}"/>,</apex:repeat>
 
 	Care Plans
-	Total number of care plans in place,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CarePlansInPlace}"/>,</apex:repeat>
+	Total number of supported individuals with care plans in place,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CarePlansInPlace}"/>,</apex:repeat>
 	Total number of care plans developed in reporting period,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CarePlansCreated}"/>,</apex:repeat>
 	Total number of care plans reviewed in reporting period,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CarePlansReviewed}"/>,</apex:repeat>
 	Total number of care plans completed during reporting period,<apex:repeat value="{!MonthData}" var="month"><apex:outputText value="{!month.Region1.CarePlansCompleted}"/>,</apex:repeat>

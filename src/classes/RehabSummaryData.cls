@@ -157,41 +157,66 @@ public with sharing class RehabSummaryData extends MonthSummaryData
 		}
 	}
 
+	// EK 25 August 2014 - Mark wants count of supported individuals with careplans in place 
 	public override void countCarePlans()
 	{
-		List<Care_Plan_Objective__c> carePlans = [select ID, Date_objective_set__c, Review_date__c, Date_completed__c, Client__r.Region__c
+		set <ID> individualsWithCarePlansLongford = new set <ID>();
+		set <ID> individualsWithCarePlansWestmeath = new set <ID>();
+		set <ID> individualsWithCarePlansLaois = new set <ID>();
+		set <ID> individualsWithCarePlansOffaly = new set <ID>();
+		List<Care_Plan_Objective__c> carePlans = [select ID, Date_objective_set__c, Review_date__c, Date_completed__c, Client__r.Region__c, Client__c
 			from Care_Plan_Objective__c where Client__c in :clientsSupportedThisMonth and Date_objective_set__c != null];
 		for (Care_Plan_Objective__c oneCarePlan: carePlans)
 		{
 			if (oneCarePlan.Client__r.Region__c == 'Longford')
 			{
-				if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) Region1.CarePlansInPlace++;
+				if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) 
+				{
+					// Region1.CarePlansInPlace++;
+					individualsWithCarePlansLongford.add (oneCarePlan.Client__c);
+				}
 				if (oneCarePlan.Date_objective_set__c >= startOfMonth && oneCarePlan.Date_objective_set__c <= endOfMonth) Region1.CarePlansCreated++;
 				if (oneCarePlan.Review_date__c != null && oneCarePlan.Review_date__c >= startOfMonth && oneCarePlan.Review_date__c <= endOfMonth) Region1.CarePlansReviewed++;
 				if (oneCarePlan.Date_completed__c != null && oneCarePlan.Date_completed__c >= startOfMonth && oneCarePlan.Date_completed__c <= endOfMonth) Region1.CarePlansCompleted++;
 			}
 			else if (oneCarePlan.Client__r.Region__c == 'Westmeath')
 			{
-				if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) Region2.CarePlansInPlace++;
+				if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) 
+				{
+					// Region2.CarePlansInPlace++;
+					individualsWithCarePlansWestmeath.add (oneCarePlan.Client__c);
+				}
 				if (oneCarePlan.Date_objective_set__c >= startOfMonth && oneCarePlan.Date_objective_set__c <= endOfMonth) Region2.CarePlansCreated++;
 				if (oneCarePlan.Review_date__c != null && oneCarePlan.Review_date__c >= startOfMonth && oneCarePlan.Review_date__c <= endOfMonth) Region2.CarePlansReviewed++;
 				if (oneCarePlan.Date_completed__c != null && oneCarePlan.Date_completed__c >= startOfMonth && oneCarePlan.Date_completed__c <= endOfMonth) Region2.CarePlansCompleted++;
 			}
 			else if (oneCarePlan.Client__r.Region__c == 'Laois')
 			{
-				if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) Region3.CarePlansInPlace++;
+				if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) 
+				{
+					// Region3.CarePlansInPlace++;
+					individualsWithCarePlansLaois.add (oneCarePlan.Client__c);
+				}
 				if (oneCarePlan.Date_objective_set__c >= startOfMonth && oneCarePlan.Date_objective_set__c <= endOfMonth) Region3.CarePlansCreated++;
 				if (oneCarePlan.Review_date__c != null && oneCarePlan.Review_date__c >= startOfMonth && oneCarePlan.Review_date__c <= endOfMonth) Region3.CarePlansReviewed++;
 				if (oneCarePlan.Date_completed__c != null && oneCarePlan.Date_completed__c >= startOfMonth && oneCarePlan.Date_completed__c <= endOfMonth) Region3.CarePlansCompleted++;
 			}
 			else if (oneCarePlan.Client__r.Region__c == 'Offaly')
 			{
-				if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) Region4.CarePlansInPlace++;
+				if (oneCarePlan.Date_objective_set__c <= endOfMonth && (oneCarePlan.Date_completed__c == null || oneCarePlan.Date_completed__c >= startOfMonth)) 
+				{
+					// Region4.CarePlansInPlace++;
+					individualsWithCarePlansOffaly.add (oneCarePlan.Client__c);
+				}
 				if (oneCarePlan.Date_objective_set__c >= startOfMonth && oneCarePlan.Date_objective_set__c <= endOfMonth) Region4.CarePlansCreated++;
 				if (oneCarePlan.Review_date__c != null && oneCarePlan.Review_date__c >= startOfMonth && oneCarePlan.Review_date__c <= endOfMonth) Region4.CarePlansReviewed++;
 				if (oneCarePlan.Date_completed__c != null && oneCarePlan.Date_completed__c >= startOfMonth && oneCarePlan.Date_completed__c <= endOfMonth) Region4.CarePlansCompleted++;
 			}
 		}
+		Region1.CarePlansInPlace = individualsWithCarePlansLongford.size();
+		Region2.CarePlansInPlace = individualsWithCarePlansWestmeath.size();
+		Region3.CarePlansInPlace = individualsWithCarePlansLaois.size();
+		Region4.CarePlansInPlace = individualsWithCarePlansOffaly.size();
 	}
 
 	public override void countNewAttendees ()
